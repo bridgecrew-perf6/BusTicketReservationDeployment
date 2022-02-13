@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,22 +34,50 @@ public class TicketController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/{userName}/seatMap/{id}")
-    public String viewSeatMap(@PathVariable String userName, @PathVariable Long id, Model model) {
-        model.addAttribute("userName", userName);
+    @RequestMapping("/seatMap/{id}")
+    public String viewSeatMap(Principal principal, @PathVariable Long id, Model model) {
+        if (principal != null) {
+            String username = principal.getName();
+            model.addAttribute("userName", username);
+        }
         model.addAttribute("id", id);
         return "seatMap";
     }
 
-    @RequestMapping("/{userName}/bookedPage/{id}")
-    public String ticketBooking(@PathVariable String userName, @PathVariable Long id, Model model) {
-        model.addAttribute("userName", userName);
-        model.addAttribute("bus", id);
-        return "bookedPage";
+    @PostMapping("seatMap/{id}")
+    public String busTicketBooking(Principal principal,@PathVariable Long id,Model model){
+        if (principal != null) {
+            String username = principal.getName();
+            model.addAttribute("userName", username);
+        }
+        int tNumber=0;
+        String[] tickets=new String[36];
+        List<BookedTickets> bookedTickets=bookedTicketsService.getByBusScheduleId(id);
+        for(BookedTickets ticket:bookedTickets){
+            tickets[tNumber]=ticket.getBookedTickets();
+            tNumber++;
+        }
+        model.addAttribute("tickets",tickets);
+        model.addAttribute("bus",id);
+        return "seatMap";
     }
 
-    @PostMapping("/{userName}/bookedPage/{id}")
-    public String bookedTickets(@PathVariable String userName, @PathVariable Long id, HttpServletRequest request, Model model) {
+//    @RequestMapping("/bookedPage/{id}")
+//    public String ticketBooking(Principal principal, @PathVariable Long id, Model model) {
+//        if (principal != null) {
+//            String username = principal.getName();
+//            model.addAttribute("userName", username);
+//        }
+//        model.addAttribute("bus", id);
+//        return "bookedPage";
+//    }
+
+    @PostMapping("/bookedPage/{id}")
+    public String bookedTickets(Principal principal, @PathVariable Long id, HttpServletRequest request, Model model) {
+        if (principal != null) {
+            String username = principal.getName();
+            model.addAttribute("userName", username);
+        }
         model.addAttribute("bus", id);
         String bookedTickets = request.getParameter("bookedSeats");
         String[] bookedTicket = bookedTickets.split(",");
@@ -56,7 +85,8 @@ public class TicketController {
             BookedTickets bookedTickets1 = bookedTicketsService.getByBookedTicketsAndBusScheduleId(ticket, id);
             if (!(Objects.isNull(bookedTickets1))) {
                 model.addAttribute("message1", "These Tickets are already booked...!");
-                return "redirect:/" + userName + "/seatMap/" + id;
+//                return "redirect:/seatMap/" + id;
+                return "seatMap";
 
             }
         }
@@ -65,28 +95,32 @@ public class TicketController {
             Tickets tickets = ticketsService.getByTickets(ticket);
             BookedTickets bookedTickets1 = new BookedTickets(tickets.getTickets(), tickets.getPrice());
             bookedTickets1.setBusSchedule(busScheduleService.findByBusId(id));
-            bookedTickets1.setUser(userService.findById(userName));
+            bookedTickets1.setUser(userService.findById(principal.getName()));
             bookedTicketsService.saveTickets(bookedTickets1);
             model.addAttribute("message", "Successfully booked the Tickets");
 
         }
 
-        return "bookedPage";
+        return "redirect:/busBookings";
     }
 
-    @RequestMapping("/{userName}/busBookings")
-    public String viewBusBookings(@PathVariable String userName, Model model) {
-        model.addAttribute("userName", userName);
+    @RequestMapping("/busBookings")
+    public String viewBusBookings(Principal principal, Model model) {
+        if (principal != null) {
+            String username = principal.getName();
+            model.addAttribute("userName", username);
+        }
         List<BookedTickets> bookedTickets = bookedTicketsService.getAllBookedTickets();
         ArrayList<BookedTickets> bookedTicketWithUserName = new ArrayList<BookedTickets>();
         for (BookedTickets ticket : bookedTickets) {
 
-            if (ticket.getUser().getUserName().equals(userName)) {
+            if (ticket.getUser().getUserName().equals(principal.getName())) {
                 bookedTicketWithUserName.add(ticket);
             }
         }
         model.addAttribute("seats", bookedTicketWithUserName);
-        System.out.println(userName);
         return "busBookings";
     }
+
+
 }

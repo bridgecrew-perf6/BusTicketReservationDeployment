@@ -25,7 +25,7 @@ public class BusScheduleService {
     }
 
     public void save(BusSchedule busSchedule) {
-         busScheduleRepository.save(busSchedule);
+        busScheduleRepository.save(busSchedule);
     }
 
 

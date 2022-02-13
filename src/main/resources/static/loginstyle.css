@@ -57,7 +57,10 @@ color:green;
 color:red;
 }
 .error{
-color:red;
+color:white;
+}
+.error1{
+color:white;
 }
 .td{
 font-family: "Raleway", sans-serif;
@@ -70,7 +73,7 @@ color:white;
 #button1{
 border:1px solid white;
 border-radius:6px;
-background-image: linear-gradient(to top, #c71d6f 0%, #d09693 100%);
+background-image: linear-gradient(to top, #0a1a3e 0%, #d09693 100%);
 }
 .newUser{
 text-align:center;

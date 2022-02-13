@@ -25,10 +25,10 @@
             <div>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-white" th:href="@{/{userName}/busBookings (userName=${userName})}">Booked Buses</a>
+                        <a class="nav-link text-white" th:href="@{/busBookings}">Booked Buses</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Contact Us</a>
+                        <a class="nav-link text-white" href="/contact">Contact Us</a>
                     </li>
                 </ul>
             </div>
@@ -55,7 +55,7 @@
             <td th:text="${bus.busName}"></td>
             <td th:text="${bus.startingPlace}"></td>
             <td th:text="${bus.destinationPlace}"></td>
-            <td><a class="btn btn-primary" th:href="@{/{userName}/viewSchedule/{id} (userName=${userName},id=${bus.registrationNumber})}">Search</a>
+            <td><a class="btn btn-primary search" th:href="@{/viewSchedule/{id} (id=${bus.registrationNumber})}">Search</a>
             </td>
 
         </tr>

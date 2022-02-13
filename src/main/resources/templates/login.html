@@ -30,10 +30,10 @@
             <div>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#"></a>
+                        <a class="nav-link text-white" href="/register">Sign Up</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Contact Us</a>
+                        <a class="nav-link text-white" href="/contact">Contact Us</a>
                     </li>
                 </ul>
             </div>
@@ -46,10 +46,15 @@
 <form action="/login" method="post">
     <h1 class="head1 mt-5" align="center">Sign In Here</h1>
     <div class="container mt-2" id="formcontainer" align="center">
-        <h6 class="head6 mt-3"><span th:text="${error}"/></h6> <h6 class="error mt-3"><span th:text="${error2}"/></h6>
+        <div th:if="${param.error}" class="error">
+            Invalid username and password.
+        </div>
+        <div th:if="${param.logout}" class="error1">
+            Logged out..Please login again to continue.
+        </div>
         <h6 class="successmsg mt-3"><span th:text="${message}"/></h6>
         <div>
-            <label class="mt-2">User Name :</label><input type="text" name="userName" placeholder="User Name" class="form-control" required><br>
+            <label class="mt-2">User Name :</label><input type="text" name="username" placeholder="User Name" class="form-control" required><br>
         </div>
         <div>
             <label>Password :</label> <input type="password" name="password" placeholder="Password" class="form-control" required><br>

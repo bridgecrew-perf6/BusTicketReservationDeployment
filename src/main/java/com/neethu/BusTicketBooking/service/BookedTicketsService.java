@@ -28,4 +28,9 @@ public class BookedTicketsService {
     public List<BookedTickets> getAllBookedTickets() {
         return bookedTicketsRepository.findAll();
     }
+
+
+    public List<BookedTickets> getByBusScheduleId(Long id) {
+        return bookedTicketsRepository.getByBusSchedule(id);
+    }
 }
