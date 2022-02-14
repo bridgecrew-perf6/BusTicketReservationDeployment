@@ -231,12 +231,11 @@ function price()
 </script>
 <script type="text/javascript" th:inline="javascript">
     /*<![CDATA[*/
-    var theList=[[${tickets}]]
-    for(i=0;i<theList.length;i++){
-    document.getElementById(theList[i]).disabled=true;
+    var theList = [[${tickets}]]
+    for (i = 0; i < theList.length; i++) {
+        document.getElementById(theList[i]).disabled=true;
     }
     /*]]>*/
 </script>
-
 </body>
 </html>

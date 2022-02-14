@@ -40,16 +40,6 @@ public class TicketController {
             String username = principal.getName();
             model.addAttribute("userName", username);
         }
-        model.addAttribute("id", id);
-        return "seatMap";
-    }
-
-    @PostMapping("seatMap/{id}")
-    public String busTicketBooking(Principal principal,@PathVariable Long id,Model model){
-        if (principal != null) {
-            String username = principal.getName();
-            model.addAttribute("userName", username);
-        }
         int tNumber=0;
         String[] tickets=new String[36];
         List<BookedTickets> bookedTickets=bookedTicketsService.getByBusScheduleId(id);
@@ -58,19 +48,21 @@ public class TicketController {
             tNumber++;
         }
         model.addAttribute("tickets",tickets);
-        model.addAttribute("bus",id);
+        model.addAttribute("id", id);
         return "seatMap";
     }
 
-//    @RequestMapping("/bookedPage/{id}")
-//    public String ticketBooking(Principal principal, @PathVariable Long id, Model model) {
+//    @PostMapping("seatMap/{id}")
+//    public String busTicketBooking(Principal principal,@PathVariable Long id,Model model){
 //        if (principal != null) {
 //            String username = principal.getName();
 //            model.addAttribute("userName", username);
 //        }
-//        model.addAttribute("bus", id);
-//        return "bookedPage";
+//
+//        model.addAttribute("bus",id);
+//        return "seatMap";
 //    }
+
 
     @PostMapping("/bookedPage/{id}")
     public String bookedTickets(Principal principal, @PathVariable Long id, HttpServletRequest request, Model model) {
