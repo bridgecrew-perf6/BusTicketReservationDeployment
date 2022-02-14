@@ -31,6 +31,6 @@ public class BookedTicketsService {
 
 
     public List<BookedTickets> getByBusScheduleId(Long id) {
-        return bookedTicketsRepository.getByBusSchedule(id);
+        return bookedTicketsRepository.getByBusScheduleId(id);
     }
 }

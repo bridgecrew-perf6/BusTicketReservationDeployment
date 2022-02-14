@@ -12,5 +12,5 @@ public interface BookedTicketsRepository extends JpaRepository<BookedTickets,Lon
 
     public BookedTickets findByUserUserName(String userName);
 
-    public List<BookedTickets> getByBusSchedule(Long id);
+    public List<BookedTickets> getByBusScheduleId(Long id);
 }
