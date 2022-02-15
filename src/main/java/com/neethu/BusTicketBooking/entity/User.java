@@ -13,24 +13,24 @@ public class User {
     private String userName;
     @Column(nullable = false)
     private String name;
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     private Long phoneNumber;
     @Column(nullable = false)
     private String password;
     private String roles;
 
-    @OneToMany(mappedBy = "user" )
+    @OneToMany(mappedBy = "user")
     private List<BookedTickets> bookedTickets;
 
-    public User(String userName, String name, Long phoneNumber, String password,String role) {
+    public User(String userName, String name, Long phoneNumber, String password, String role) {
         this.userName = userName;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.password = password;
-        this.roles=role;
+        this.roles = role;
     }
 
-    public User(){
+    public User() {
 
     }
 

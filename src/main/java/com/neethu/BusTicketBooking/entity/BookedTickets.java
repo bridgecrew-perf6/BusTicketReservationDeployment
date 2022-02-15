@@ -29,7 +29,8 @@ public class BookedTickets {
         this.price = price;
     }
 
-    public BookedTickets(){}
+    public BookedTickets() {
+    }
 
     public Long getId() {
         return id;

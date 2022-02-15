@@ -14,7 +14,7 @@ public class BookedTicketsService {
     private BookedTicketsRepository bookedTicketsRepository;
 
     public BookedTickets getByBookedTicketsAndBusScheduleId(String ticket, Long id) {
-        return bookedTicketsRepository.getByBookedTicketsAndBusScheduleId(ticket,id);
+        return bookedTicketsRepository.getByBookedTicketsAndBusScheduleId(ticket, id);
     }
 
     public void saveTickets(BookedTickets bookedTickets1) {

@@ -15,12 +15,11 @@ public class BusScheduleService {
     private BusScheduleRepository busScheduleRepository;
 
 
-    public BusSchedule findByBusId(Long id){
+    public BusSchedule findByBusId(Long id) {
         return busScheduleRepository.getById(id);
     }
 
-    public List<BusSchedule> listAllBusSchedules()
-    {
+    public List<BusSchedule> listAllBusSchedules() {
         return busScheduleRepository.findAll();
     }
 

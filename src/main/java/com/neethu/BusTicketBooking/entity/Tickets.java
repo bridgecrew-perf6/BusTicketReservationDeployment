@@ -17,7 +17,9 @@ public class Tickets {
         this.tickets = tickets;
         this.price = price;
     }
-    public Tickets(){}
+
+    public Tickets() {
+    }
 
     public Long getId() {
         return id;

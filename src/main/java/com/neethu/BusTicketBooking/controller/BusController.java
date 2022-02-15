@@ -29,7 +29,7 @@ public class BusController {
     private BusScheduleService busScheduleService;
 
     @RequestMapping("/addBus")
-    public String addBus(Principal principal,Model model){
+    public String addBus(Principal principal, Model model) {
         if (principal != null) {
             String username = principal.getName();
             model.addAttribute("userName", username);
@@ -38,14 +38,14 @@ public class BusController {
     }
 
     @PostMapping("/addBus")
-    public String addBusDetails(HttpServletRequest request, Model model){
-        String registrationNumber=request.getParameter("registrationNumber");
-        String busName=request.getParameter("busName");
-        String startingPlace=request.getParameter("startingPlace");
-        String destinationPlace=request.getParameter("destinationPlace");
+    public String addBusDetails(HttpServletRequest request, Model model) {
+        String registrationNumber = request.getParameter("registrationNumber");
+        String busName = request.getParameter("busName");
+        String startingPlace = request.getParameter("startingPlace");
+        String destinationPlace = request.getParameter("destinationPlace");
 
 
-        Bus bus=new Bus(registrationNumber,busName,startingPlace,destinationPlace);
+        Bus bus = new Bus(registrationNumber, busName, startingPlace, destinationPlace);
         busService.save(bus);
         model.addAttribute("message", "successfully added Bus Details");
         return "busSchedule";
@@ -53,50 +53,51 @@ public class BusController {
     }
 
     @RequestMapping("/busSchedule")
-    public String busSchedule(){
+    public String busSchedule() {
         return "busSchedule";
     }
 
     @PostMapping("/busSchedule")
-    public String addBusSchedule(HttpServletRequest request,Model model){
-        String registrationNumber=request.getParameter("registrationNumber");
-        Date fromDate=Date.valueOf(request.getParameter("fromDate"));
-        Time startingTime=Time.valueOf(request.getParameter("startingTime")+":00");
+    public String addBusSchedule(HttpServletRequest request, Model model) {
+        String registrationNumber = request.getParameter("registrationNumber");
+        Date fromDate = Date.valueOf(request.getParameter("fromDate"));
+        Time startingTime = Time.valueOf(request.getParameter("startingTime") + ":00");
 
-        BusSchedule busSchedule=new BusSchedule(fromDate,startingTime);
+        BusSchedule busSchedule = new BusSchedule(fromDate, startingTime);
         busSchedule.setBus(busService.findByBusRegistrationNumber(registrationNumber));
         busScheduleService.save(busSchedule);
         return "busSchedule";
     }
+
     @RequestMapping("/busList")
-    public String busList(Principal principal,Model model){
+    public String busList(Principal principal, Model model) {
         if (principal != null) {
             String username = principal.getName();
             model.addAttribute("userName", username);
         }
-        model.addAttribute("buses",busService.listAllBuses());
+        model.addAttribute("buses", busService.listAllBuses());
         return "busList";
     }
 
     @RequestMapping("/viewSchedule/{regNo}")
-    public String viewScheduleOfBuses(@PathVariable String regNo,Principal principal, Model model) {
+    public String viewScheduleOfBuses(@PathVariable String regNo, Principal principal, Model model) {
         if (principal != null) {
             String username = principal.getName();
             model.addAttribute("userName", username);
         }
         model.addAttribute("schedules", busScheduleService.busScheduleDetails(regNo));
-        model.addAttribute("busName",busService.findByBusRegistrationNumber(regNo));
+        model.addAttribute("busName", busService.findByBusRegistrationNumber(regNo));
 
         return "viewSchedule";
     }
 
     @RequestMapping("/adminViewBuses")
-    public String adminViewBusList(Principal principal,Model model){
+    public String adminViewBusList(Principal principal, Model model) {
         if (principal != null) {
             String username = principal.getName();
             model.addAttribute("userName", username);
         }
-        model.addAttribute("buses",busScheduleService.listAllBusSchedules());
+        model.addAttribute("buses", busScheduleService.listAllBusSchedules());
         return "adminViewBuses";
     }
 
@@ -108,7 +109,7 @@ public class BusController {
             model.addAttribute("userName", username);
 
         }
-        model.addAttribute("busDetails",busScheduleService.findByBusId(id));
+        model.addAttribute("busDetails", busScheduleService.findByBusId(id));
         return "updateBusDetails";
     }
 
@@ -119,13 +120,13 @@ public class BusController {
             String username = principal.getName();
             model.addAttribute("userName", username);
         }
-        BusSchedule busSchedule=busScheduleService.findByBusId(id);
-        String regNo=req.getParameter("registrationNumber");
+        BusSchedule busSchedule = busScheduleService.findByBusId(id);
+        String regNo = req.getParameter("registrationNumber");
         Date fromDate = Date.valueOf(req.getParameter("fromDate"));
-        String sTime= req.getParameter("startingTime");
+        String sTime = req.getParameter("startingTime");
 
         if (sTime.length() == 5) sTime += ":00";
-        Time  startingTime= Time.valueOf(sTime);
+        Time startingTime = Time.valueOf(sTime);
         busSchedule.setFromDate(fromDate);
         busSchedule.setStartingTime(startingTime);
         busSchedule.setBus(busService.findByBusRegistrationNumber(regNo));

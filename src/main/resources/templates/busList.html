@@ -55,7 +55,8 @@
             <td th:text="${bus.busName}"></td>
             <td th:text="${bus.startingPlace}"></td>
             <td th:text="${bus.destinationPlace}"></td>
-            <td><a class="btn btn-primary search" th:href="@{/viewSchedule/{id} (id=${bus.registrationNumber})}">Search</a>
+            <td><a class="btn btn-primary search"
+                   th:href="@{/viewSchedule/{id} (id=${bus.registrationNumber})}">Search</a>
             </td>
 
         </tr>

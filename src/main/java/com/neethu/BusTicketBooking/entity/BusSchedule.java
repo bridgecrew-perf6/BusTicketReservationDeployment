@@ -25,11 +25,12 @@ public class BusSchedule {
     @OneToMany(mappedBy = "busSchedule")
     private List<BookedTickets> bookedTickets;
 
-    public BusSchedule( Date fromDate, Time startingTime) {
+    public BusSchedule(Date fromDate, Time startingTime) {
         this.fromDate = fromDate;
         this.startingTime = startingTime;
     }
-    public BusSchedule(){
+
+    public BusSchedule() {
 
     }
 

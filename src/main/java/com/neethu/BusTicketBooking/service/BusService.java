@@ -14,12 +14,11 @@ public class BusService {
     private BusRepository busRepository;
 
 
-    public Bus findByBusRegistrationNumber(String registrationNumber){
+    public Bus findByBusRegistrationNumber(String registrationNumber) {
         return busRepository.getById(registrationNumber);
     }
 
-    public List<Bus> listAllBuses()
-    {
+    public List<Bus> listAllBuses() {
         return busRepository.findAll();
     }
 

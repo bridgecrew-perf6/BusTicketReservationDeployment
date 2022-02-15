@@ -27,13 +27,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/addBus").hasRole("ADMIN")
-                .antMatchers("/busList","/seatMap/*","/viewSchedule/*","/bookedPage/*","/busBookings").hasRole("USER")
+                .antMatchers("/busList", "/seatMap/*", "/viewSchedule/*", "/bookedPage/*", "/busBookings").hasRole("USER")
                 .antMatchers("/").permitAll()
                 .and().formLogin().loginPage("/login").defaultSuccessUrl("/success");
 
     }
+
     @Bean
-    public PasswordEncoder getPasswordEncoder(){
+    public PasswordEncoder getPasswordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
 }

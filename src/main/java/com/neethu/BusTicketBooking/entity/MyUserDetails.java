@@ -13,10 +13,10 @@ public class MyUserDetails implements UserDetails {
     private final String password;
     private final String role;
 
-    public MyUserDetails(User user){
-        this.userName=user.getUserName();
-        this.password=user.getPassword();
-        this.role=user.getRoles();
+    public MyUserDetails(User user) {
+        this.userName = user.getUserName();
+        this.password = user.getPassword();
+        this.role = user.getRoles();
     }
 
     @Override

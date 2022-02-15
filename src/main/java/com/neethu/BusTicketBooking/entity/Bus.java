@@ -29,7 +29,8 @@ public class Bus {
         this.startingPlace = startingPlace;
         this.destinationPlace = destinationPlace;
     }
-    public Bus(){
+
+    public Bus() {
 
     }
 

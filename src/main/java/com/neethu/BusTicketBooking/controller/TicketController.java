@@ -40,14 +40,14 @@ public class TicketController {
             String username = principal.getName();
             model.addAttribute("userName", username);
         }
-        int tNumber=0;
-        String[] tickets=new String[36];
-        List<BookedTickets> bookedTickets=bookedTicketsService.getByBusScheduleId(id);
-        for(BookedTickets ticket:bookedTickets){
-            tickets[tNumber]=ticket.getBookedTickets();
+        int tNumber = 0;
+        String[] tickets = new String[36];
+        List<BookedTickets> bookedTickets = bookedTicketsService.getByBusScheduleId(id);
+        for (BookedTickets ticket : bookedTickets) {
+            tickets[tNumber] = ticket.getBookedTickets();
             tNumber++;
         }
-        model.addAttribute("tickets",tickets);
+        model.addAttribute("tickets", tickets);
         model.addAttribute("id", id);
         return "seatMap";
     }

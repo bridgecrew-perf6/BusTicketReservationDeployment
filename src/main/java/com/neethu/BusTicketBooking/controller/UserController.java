@@ -24,7 +24,6 @@ public class UserController {
     private BusService busService;
 
 
-
     @RequestMapping("/")
     public String homepage() {
         return "home";
@@ -41,15 +40,15 @@ public class UserController {
     }
 
     @RequestMapping("/contact")
-    public String contactUs(){
+    public String contactUs() {
         return "contact";
     }
 
 
     @GetMapping("/success")
-    public String signIn(Principal principal){
-        String userName=principal.getName();
-        if (userName.equals("admin")){
+    public String signIn(Principal principal) {
+        String userName = principal.getName();
+        if (userName.equals("admin")) {
             return "redirect:/addBus";
         }
         return "redirect:/busList";
@@ -63,18 +62,16 @@ public class UserController {
         Long phoneNumber = Long.parseLong(request.getParameter("phoneNumber"));
 
         User user;
-        if (userName.equals("admin")){
-            user = new User(userName, name, phoneNumber, password,"ROLE_ADMIN");
-        }
-        else {
-            user= new User(userName, name, phoneNumber, password,"ROLE_USER");
+        if (userName.equals("admin")) {
+            user = new User(userName, name, phoneNumber, password, "ROLE_ADMIN");
+        } else {
+            user = new User(userName, name, phoneNumber, password, "ROLE_USER");
 
         }
-        if(!userService.usernameExistsById(userName)){
+        if (!userService.usernameExistsById(userName)) {
             userService.save(user);
-        }
-        else {
-            model.addAttribute("error","This username already exists..!");
+        } else {
+            model.addAttribute("error", "This username already exists..!");
             return "register";
         }
 
@@ -115,7 +112,6 @@ public class UserController {
 //            return "login";
 //        }
 //    }
-
 
 
 }
