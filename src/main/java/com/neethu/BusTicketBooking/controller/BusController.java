@@ -62,10 +62,16 @@ public class BusController {
         String registrationNumber = request.getParameter("registrationNumber");
         Date fromDate = Date.valueOf(request.getParameter("fromDate"));
         Time startingTime = Time.valueOf(request.getParameter("startingTime") + ":00");
+        if(busService.existsById(registrationNumber)){
+            BusSchedule busSchedule = new BusSchedule(fromDate, startingTime);
+            busSchedule.setBus(busService.findByBusRegistrationNumber(registrationNumber));
+            busScheduleService.save(busSchedule);
+            model.addAttribute("msg","Schedule added successfully.");
+        }
+        else{
+            model.addAttribute("msg","Registration Number is Invalid");
+        }
 
-        BusSchedule busSchedule = new BusSchedule(fromDate, startingTime);
-        busSchedule.setBus(busService.findByBusRegistrationNumber(registrationNumber));
-        busScheduleService.save(busSchedule);
         return "busSchedule";
     }
 

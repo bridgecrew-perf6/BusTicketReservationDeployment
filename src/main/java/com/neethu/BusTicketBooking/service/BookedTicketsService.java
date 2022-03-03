@@ -33,4 +33,12 @@ public class BookedTicketsService {
     public List<BookedTickets> getByBusScheduleId(Long id) {
         return bookedTicketsRepository.getByBusScheduleId(id);
     }
+
+    public boolean existsById(Long id) {
+        return bookedTicketsRepository.existsById(id);
+    }
+
+    public void deleteById(Long id) {
+        bookedTicketsRepository.deleteById(id);
+    }
 }

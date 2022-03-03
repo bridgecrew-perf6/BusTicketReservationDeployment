@@ -32,7 +32,7 @@
                     <label for="1C">1C</label>
                 </li>
                 <li class="seat">
-                    <input type="checkbox" id="1D"/>
+                    <input type="checkbox"  id="1D"/>
                     <label for="1D">1D</label>
                 </li>
                 <li class="seat">
@@ -190,7 +190,7 @@
     <!--    <div class="exit exit&#45;&#45;back">-->
     <!--    </div>-->
     <div align="center">
-        <button id="bookSeat" class="btn btn-success">Pay<span id="amount"></span></button>
+        <button id="bookSeat"  class="btn btn-success" onclick="alertBox()">Pay<span id="amount"></span></button>
     </div>
     <form th:action="@{/bookedPage/{id} (id=${id})}" style="display:none" method="post">
         <input type="text" id="bookedSeats" name="bookedSeats" align="center" class="form-control"/>
@@ -228,7 +228,6 @@ function price()
     document.querySelectorAll("input[type=checkbox]").forEach(function (input){input.addEventListener("click",price)})
     document.getElementById("bookSeat").addEventListener("click",bookSeats)
 
-
 </script>
 <script type="text/javascript" th:inline="javascript">
     /*<![CDATA[*/
@@ -237,6 +236,11 @@ function price()
         document.getElementById(theList[i]).disabled=true;
     }
     /*]]>*/
+</script>
+<script>
+function alertBox() {
+  alert("Tickets Booked Successfully!");
+}
 
 </script>
 </body>

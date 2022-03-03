@@ -9,6 +9,7 @@ import com.neethu.BusTicketBooking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,6 +64,15 @@ public class TicketController {
 //        return "seatMap";
 //    }
 
+//    @RequestMapping("/bookedPage/{id}")
+//    public String ticketBooking(Principal principal, @PathVariable Long id, Model model) {
+//        if (principal != null) {
+//            String username = principal.getName();
+//            model.addAttribute("userName", username);
+//        }
+//        model.addAttribute("bus", id);
+//        return "bookedPage";
+//    }
 
     @PostMapping("/bookedPage/{id}")
     public String bookedTickets(Principal principal, @PathVariable Long id, HttpServletRequest request, Model model) {
@@ -114,5 +124,17 @@ public class TicketController {
         return "busBookings";
     }
 
+    @RequestMapping("/cancelTicket/{id}")
+    public String cancelTickets(Principal principal,@PathVariable Long id,Model model){
+        if (principal != null) {
+            String username = principal.getName();
+            model.addAttribute("userName", username);
+        }
+        model.addAttribute("id",id);
+        if(bookedTicketsService.existsById(id)){
+            bookedTicketsService.deleteById(id);
+        }
+        return "redirect:/busBookings";
+    }
 
 }

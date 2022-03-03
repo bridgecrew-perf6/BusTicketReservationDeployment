@@ -60,6 +60,7 @@
             <th scope="col">Bus Time</th>
             <th scope="col">Ticket number</th>
             <th scope="col">Amount</th>
+            <th scope="col">Action</th>
 
         </tr>
         </thead>
@@ -73,7 +74,7 @@
             <td th:text="${ticket.busSchedule.startingTime}"></td>
             <td th:text="${ticket.bookedTickets}"></td>
             <td th:text="${ticket.price}"></td>
-
+            <td><a class="btn" th:href="@{/cancelTicket/{id} (id=${ticket.id})}">Cancel Ticket</a></td>
         </tr>
         </tbody>
     </table>

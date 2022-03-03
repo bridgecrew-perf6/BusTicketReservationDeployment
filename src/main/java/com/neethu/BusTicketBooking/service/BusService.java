@@ -25,4 +25,8 @@ public class BusService {
     public Bus save(Bus bus) {
         return busRepository.save(bus);
     }
+
+    public boolean existsById(String registrationNumber) {
+        return busRepository.existsById(registrationNumber);
+    }
 }
